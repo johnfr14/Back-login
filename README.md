@@ -3,6 +3,7 @@
 ## Usage
 ```js
 gcl https://github.com/johnfr14/server-web3.git
+cd server-web3
 yarn
 yarn start
 ```
