@@ -29,7 +29,7 @@ const readLastLog = async () => {
 
 const app = express()
 const PORT = 3333
-const IP_LOCAL = "127.0.0.1"
+//const IP_LOCAL = "128.0.0.1"
 
 // exercice 1 
 app.get('/', (req, res, next) => {
@@ -57,7 +57,7 @@ app.get('/info', (req, res, next) => {
 
 // exercice 4 
 app.get('/:address', async (req, res) => {
-  const account = new ethers.providers.InfuraProvider("rinkeby", process.env.INFURA_PROJECT_ID)
+  const account = new ethers.providers.InfuraProvider("rinkeby", "d63ccb145caa4670b4db18d68fffdf22")
   const address = req.params.address
   if (ethers.utils.isAddress(address)) {
     const amount = await account.getBalance(address)
@@ -67,8 +67,6 @@ app.get('/:address', async (req, res) => {
   }
 })
 
-
-
-app.listen(PORT, IP_LOCAL, () => {
-  console.log(`Example app listening at http://${IP_LOCAL}:${PORT}`)
-})
+  app.listen(PORT, () => {
+    console.log(`Example app listening at http://localhost:${PORT}`)
+  })
