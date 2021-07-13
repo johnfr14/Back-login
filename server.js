@@ -1,81 +1,56 @@
-const express = require('express')
-const ethers = require('ethers')
-const {exec} = require('child_process')
-const fsPromises = require('fs/promises')
+import express from 'express'
+import cors from "cors"
 
-const LOG_FILE = 'access-log.txt'
+// Our user database
+const db_user = {
+  alice: '123',
+  bob: '456',
+  charlie: '789',
+}
 
-const logger = async (req) => {
-  try {
-    const date = new Date()
-    const log = `${date.toUTCString()} ${req.method} "${
-      req.originalUrl
-    }" from ${req.ip} ${req.headers['user-agent']}\n`
-    await fsPromises.appendFile(LOG_FILE, log, 'utf-8')
-  } catch (e) {
-    console.error(`Error: can't write in ${LOG_FILE}`)
+// Middleware for checking if user exists
+const userChecker = (req, res, next) => {
+  console.log(req.body)
+  const username = req.body.username
+  if (db_user.hasOwnProperty(username)) {
+    next()
+  } else {
+    res.send('Username or Password invalid.')
   }
 }
 
-const readLastLog = async () => {
-  try {
-    const info = await fsPromises.readFile(`./${LOG_FILE}`, 'utf-8').then((result) => result.split('\n').slice(-2, -1).join())
-    console.log(info.split('\n').slice(-2, -1).join())
-    return info
-  } catch (e) {
-    console.error(e.message)
+// Middleware for checking if password is correct
+const passwordChecker = (req, res, next) => {
+  const username = req.body.username
+  const password = req.body.password
+  if (db_user[username] === password) {
+    next()
+  } else {
+    res.send('Username or password invalid.')
   }
 }
 
+//const IP = "127.0.0.1"
+const PORT = 7777
 
 const app = express()
-const PORT = 3333
-//const IP_LOCAL = "128.0.0.1"
 
-// exercice 1 
-app.get('/', (req, res, next) => {
-  logger(req);
-  next()
-}, (req, res) => {
-  res.send(`Hello ${req.ip}`)
+app.use(cors())
+// Configure express to use body-parser as middleware.
+app.use(express.urlencoded({ extended: false })) // to support URL-encoded bodies
+app.use(express.json()) // to support JSON-encoded bodies
+
+// Configure express to use these 2 middleware for /login route only
+app.use('/login', userChecker)
+app.use('/login', passwordChecker)
+
+// Create route /login for POST method
+// we are waiting for a POST request with a body containing a json data
+app.post('/login', (req, res) => {
+  let username = req.body.username
+  res.send({user: username, logged: true})
 })
 
-// exercice 3 
-app.get('/shell/:cmd', (req, res, next) => {
-  console.log(`${req.ip} connected`)
-  next()
-}, (req, res) => {
-  exec(`${req.params.cmd}`, (error, stdout, stderr) => {
-    if (error) {
-      res.send(`error: ${error.message}`);
-    } else if (stderr) {
-      res.send(`error: ${stderr.message}`);
-    } else {
-      res.send(`stdout: ${stdout}`);
-    }
-  })
+app.listen(PORT, () => {
+  console.log(`listening on http://localhost:${PORT}`)
 })
-
-app.get('/info', (req, res, next) => {
-  logger(req);
-  next()
-}, async (req, res) => {
-  const info = await readLastLog()
-  res.send(`Hello ${req.ip}, here's all the informations about you : \n\n ${info}`)
-})
-
-// exercice 4 
-app.get('/:address', async (req, res) => {
-  const account = new ethers.providers.InfuraProvider("rinkeby", "d63ccb145caa4670b4db18d68fffdf22")
-  const address = req.params.address
-  if (ethers.utils.isAddress(address)) {
-    const amount = ethers.utils.formatEther(await account.getBalance(address))
-    res.send(`l'address dite "${address.slice(0, 6) + "..." + address.slice(-4)}" est en possession de ${amount} ETH`)
-  } else {
-    res.status(404).send()
-  }
-})
-
-  app.listen(PORT, () => {
-    console.log(`Example app listening at http://localhost:${PORT}`)
-  })
