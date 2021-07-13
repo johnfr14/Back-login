@@ -1,4 +1,4 @@
-# server-web3
+# Back-login
 To be used with [Front-login](https://github.com/johnfr14/Front-login), make sure to lauch this server first
 
 ## Usage
