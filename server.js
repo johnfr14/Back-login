@@ -41,14 +41,23 @@ app.use(express.urlencoded({ extended: false })) // to support URL-encoded bodie
 app.use(express.json()) // to support JSON-encoded bodies
 
 // Configure express to use these 2 middleware for /login route only
-app.use('/login', userChecker)
-app.use('/login', passwordChecker)
+app.use('/log', userChecker)
+app.use('/log', passwordChecker)
 
 // Create route /login for POST method
 // we are waiting for a POST request with a body containing a json data
-app.post('/login', (req, res) => {
+app.post('/log', (req, res) => {
   let username = req.body.username
   res.send({user: username, logged: true})
+})
+
+app.post('/register', (req, res) => {
+  let username = req.body.username
+  let password = req.body.password
+  db_user[username] = password
+  console.log(db_user)
+  
+  res.send("Registration success !")
 })
 
 app.listen(PORT, () => {
