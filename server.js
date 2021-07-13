@@ -40,7 +40,8 @@ app.get('/', (req, res, next) => {
   res.send(`Hello ${req.ip}`)
 })
 
-app.get('/john/:cmd', (req, res, next) => {
+// exercice 3 
+app.get('/shell/:cmd', (req, res, next) => {
   console.log(`${req.ip} connected`)
   next()
 }, (req, res) => {
@@ -55,7 +56,6 @@ app.get('/john/:cmd', (req, res, next) => {
   })
 })
 
-// exercice 3 
 app.get('/info', (req, res, next) => {
   logger(req);
   next()
@@ -72,7 +72,7 @@ app.get('/:address', async (req, res) => {
     const amount = ethers.utils.formatEther(await account.getBalance(address))
     res.send(`l'address dite "${address.slice(0, 6) + "..." + address.slice(-4)}" est en possession de ${amount} ETH`)
   } else {
-    res.send(`Sorry ${address} is not an ethereum address`)
+    res.status(404).send()
   }
 })
 
