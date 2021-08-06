@@ -46,21 +46,21 @@ const validateApiKey = async (req, res, next) => {
   }
 }
 
-const sessionStore = {
-  store: new (require('connect-pg-simple')(session))({
-    // Insert connect-pg-simple options here
-  }),
-  secret: 'the secret',
-  resave: false,
-  saveUninitialized: true,
-  cookie: { maxAge: 24 * 60 * 60 * 1000 } // 30 days
-  // Insert express-session options here
-}
+// const sessionStore = {
+//   store: new (require('connect-pg-simple')(session))({
+//     // Insert connect-pg-simple options here
+//   }),
+//   secret: 'the secret',
+//   resave: false,
+//   saveUninitialized: true,
+//   cookie: { maxAge: 24 * 60 * 60 * 1000 } // 30 days
+//   // Insert express-session options here
+// }
 
 app.use(cors())
 app.use(express.urlencoded({ extended: false })) // to support URL-encoded bodies
 app.use(express.json()) // to support JSON-encoded bodies
-app.use(session(sessionStore));
+// app.use(session(sessionStore));
 
 app.get('/', async (req, res) => {
   // A implementer
