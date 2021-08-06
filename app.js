@@ -1,11 +1,9 @@
 const express = require('express')
+const PORT = process.env.PORT || 5000
 const session = require('express-session');
 const cors = require("cors")
 const db = require('./config/mydb')
 require('dotenv').config()
-
-const IP = '127.0.0.1'
-const PORT = 3333
 
 const app = express()
 
@@ -174,6 +172,6 @@ app.get('/read_message/', async (req, res) => {
   }
 })
 
-app.listen(PORT, IP, () => {
-  console.log(`listening on http://${IP}:${PORT}`)
+app.listen(PORT, () => {
+  console.log(`listening on PORT: ${PORT}`)
 })
