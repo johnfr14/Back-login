@@ -64,8 +64,7 @@ app.use(express.json()) // to support JSON-encoded bodies
 
 app.get('/', async (req, res) => {
   // A implementer
-  req.session.viewCount += 1
-  res.send(`<h1>Hello World ${req.session.viewCount}</h1>`)
+  res.send(`<h1>Hello World </h1>`)
 })
 
 app.post('/register', async (req, res) => {
