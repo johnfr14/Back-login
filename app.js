@@ -1,6 +1,7 @@
 const express = require('express')
 const PORT = process.env.PORT || 5000
 const session = require('express-session');
+const { Pool } = require('pg');
 const cors = require("cors")
 const db = require('./mydb')
 require('dotenv').config()
@@ -44,26 +45,30 @@ const validateApiKey = async (req, res, next) => {
   }
 }
 
-// const sessionStore = {
-//   store: new (require('connect-pg-simple')(session))({
-//     // Insert connect-pg-simple options here
-//   }),
-//   secret: 'the secret',
-//   resave: false,
-//   saveUninitialized: true,
-//   cookie: { maxAge: 24 * 60 * 60 * 1000 } // 30 days
-//   // Insert express-session options here
-// }
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false
+  }
+});
+
 
 app.use(cors())
 app.use(express.urlencoded({ extended: false })) // to support URL-encoded bodies
 app.use(express.json()) // to support JSON-encoded bodies
-// app.use(session(sessionStore));
 
-app.get('/', async (req, res) => {
-  // A implementer
-  res.send(`<h1>Hello World </h1>`)
-})
+app.get('/db', async (req, res) => {
+    try {
+      const client = await pool.connect();
+      const result = await client.query('SELECT * FROM test_table');
+      const results = { 'results': (result) ? result.rows : null};
+      res.render('pages/db', results );
+      client.release();
+    } catch (err) {
+      console.error(err);
+      res.send("Error " + err);
+    }
+  })
 
 app.post('/register', async (req, res) => {
   const username = req.body.username
