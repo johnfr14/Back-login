@@ -1,0 +1,145 @@
+const crypto = require('crypto')
+const { PrismaClient, Prisma } = require('@prisma/client')
+exports.prisma = new PrismaClient()
+
+const customizeError = (e) => {
+  // A query error
+  if (e instanceof Prisma.PrismaClientKnownRequestError) {
+    e.status = 'fail'
+    e.dataError = {}
+    switch (e.code) {
+      case 'P2002':
+        e.dataError[e.meta.target[0]] = `${e.meta.target[0]} already exists`
+        break
+      default:
+        e.dataError[e.meta.target[0]] = e.message
+    }
+  } else {
+    e.status = 'error'
+  }
+  throw e
+}
+
+exports.register = async (username, email, password) => {
+  const apiKey = crypto.randomUUID()
+  try {
+    const result = await prisma.user.create({
+      data: {
+        username: username,
+        email: email,
+        password: password,
+        apiKey: {
+          create: {
+            key: apiKey,
+          },
+        },
+      },
+    })
+
+    return await prisma.user.findUnique({
+      where: {
+        id: result.id,
+      },
+      select: {
+        id: true,
+        apiKey: {
+          select: {
+            key: true,
+          },
+        },
+      },
+    })
+  } catch (e) {
+    customizeError(e)
+    throw e
+  }
+}
+
+exports.getUserByApiKey = async (apiKey) => {
+  try {
+    /* 1ere alternative: la meilleure */
+    const result = await prisma.user.findFirst({
+      where: {
+        apiKey: {
+          key: {
+            contains: apiKey,
+          },
+        },
+      },
+    })
+    /* 2eme alternative: result est différent
+    const result =  await prisma.apiKey.findUnique({
+      where: {
+        key: apiKey,
+      },
+      select: {
+        user: true,
+      },
+    })*/
+    return result
+  } catch (e) {
+    customizeError(e)
+    throw e
+  }
+}
+
+exports.getUserById = async (userId) => {
+  try {
+    const result = await prisma.user.findUnique({
+      where: {
+        id: userId,
+      },
+    })
+    return result
+  } catch (e) {
+    customizeError(e)
+    throw e
+  }
+}
+
+exports.getUserByUsername = async (username) => {
+  // A implementer
+  try {
+    const result = await prisma.user.findUnique({
+      where: {
+        username: username,
+      },
+    })
+    return result
+  } catch (e) {
+    customizeError(e)
+    throw e
+  }
+}
+
+exports.sendMessage = async (srcId, dstId, content) => {
+  // A Implementer
+  try {
+    const result = await prisma.message.create({
+      data: {
+        content: content,
+        srcId: srcId,
+        dstId: dstId 
+      },
+    })
+    return result
+  } catch (e) {
+    customizeError(e)
+    throw e
+  }
+}
+
+exports.readMessage = async (dstId) => {
+  // A Implementer
+  try {
+    const result = await prisma.message.findMany({
+      where: {
+        dstId: dstId,
+      },
+    })
+    return result
+  } catch (e) {
+    customizeError(e)
+    throw e
+  }
+}
