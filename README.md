@@ -53,7 +53,7 @@ heroku open
     ```
     heroku local web
     ```
-- To connect to Heroku database 
+- To connect to Heroku database (you can then CREATE, INPUT, DROP table and column from your terminal)
     ```
     heroku pg:psql
     ```
@@ -65,7 +65,18 @@ heroku open
     > => insert into test_table values (1, 'hello database');  
     > INSERT 0 1  
     > => \q  
-
+- To pull and push database  
+    **pg:pull**
+    `pg:pull` can be used to pull remote data from a Heroku Postgres database to a database on your local machine.  
+    If providing a Postgres ***user or password*** for your local DB is necessary, use the appropriate environment variables like so:
+    ```
+    PGUSER=db_user PGPASSWORD=strongpassword123 heroku pg:pull bdd-sro mylocaldb --app bdd-sro
+    ```
+    **pg:push**
+    `pg:push` pushes data from a local database into a remote Heroku Postgres database. The command looks like this:
+    ```
+    PGUSER=db_user PGPASSWORD=strongpassword123 heroku pg:push mylocaldb bdd-sro --app bdd-sro
+    ```
 ----
 
 ## Architecture 
