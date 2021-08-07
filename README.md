@@ -58,11 +58,11 @@ To connect to Heroku database
 ```
 heroku pg:psql
 ```
-> psql (11.5)
-> SSL connection (cipher: DHE-RSA-AES256-SHA, bits: 256)
-> Type "help" for help.
-> => create table test_table (id integer, name text);
-> CREATE TABLE
-> => insert into test_table values (1, 'hello database');
-> INSERT 0 1
-> => \q
+> psql (11.5)  
+> SSL connection (cipher: DHE-RSA-AES256-SHA, bits: 256)  
+> Type "help" for help.  
+> => create table test_table (id integer, name text);  
+> CREATE TABLE  
+> => insert into test_table values (1, 'hello database');  
+> INSERT 0 1  
+> => \q  
