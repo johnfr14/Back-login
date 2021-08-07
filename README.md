@@ -8,6 +8,7 @@ But if you don't need just go to `Getting started`
 
 ## Quick installation (before cloning)
 1. **Install heroku CLI**
+
   - for [macOS](https://cli-assets.heroku.com/heroku.pkg)
   - for [windows 64-bit](https://cli-assets.heroku.com/heroku-x64.exe) or [windows 32-bit](https://cli-assets.heroku.com/heroku-x86.exe)
   - for Linux: `sudo snap install heroku --classic`
@@ -66,13 +67,13 @@ heroku open
     > INSERT 0 1  
     > => \q  
 - To pull and push database  
-    **pg:pull**
+    **pg:pull**  
     `pg:pull` can be used to pull remote data from a Heroku Postgres database to a database on your local machine.  
     If providing a Postgres ***user or password*** for your local DB is necessary, use the appropriate environment variables like so:
     ```
     PGUSER=db_user PGPASSWORD=strongpassword123 heroku pg:pull bdd-sro mylocaldb --app bdd-sro
     ```
-    **pg:push**
+    **pg:push**  
     `pg:push` pushes data from a local database into a remote Heroku Postgres database. The command looks like this:
     ```
     PGUSER=db_user PGPASSWORD=strongpassword123 heroku pg:push mylocaldb bdd-sro --app bdd-sro
