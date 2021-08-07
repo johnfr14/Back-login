@@ -1,7 +1,7 @@
 # Database SRO  
 ⚠️ before cloning this repo please make sure that everything is installed and up to date (see `quick installation`) ⚠️  
   
-If want a perfect understanding of our database i > recommand to do the [getting started](https://devcenter.heroku.com/articles/getting-started-with-nodejs) from heroku.  
+If you want a perfect understanding of our database **I recommand** to do the [getting started](https://devcenter.heroku.com/articles/getting-started-with-nodejs) from heroku.  
 But if you don't need just go to `Getting started`
 
 ----
@@ -24,7 +24,7 @@ But if you don't need just go to `Getting started`
    ```
    ```
    git --version
-   git version 2.28.0
+   git version 2.25.1
    ```
 
 ----
@@ -34,7 +34,7 @@ First log into log into your heroku account, if you don't have you will have to 
 ```
 heroku login
 ```
-Once logged in you'll be able to see all your database and of course our database -->`bdd-sro` if not ask ***el jefe*** Romain to add you as collaborator for this database
+Once logged in you'll be able to see all of your database and of course our database -->`bdd-sro` if not ask ***el jefe*** Romain to add you as collaborator for this database
 ```
 heroku addons
 ```
@@ -66,7 +66,7 @@ heroku open
     > => insert into test_table values (1, 'hello database');  
     > INSERT 0 1  
     > => \q  
-- To pull and push database (its like `git pull` and `git push` but for database :) )
+- To pull and push database (its like `git pull` and `git push` but for database )
   
     **pg:pull**:  
     `pg:pull` can be used to pull remote data from a Heroku Postgres database to a database on your local machine.  
