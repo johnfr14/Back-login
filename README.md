@@ -11,8 +11,11 @@ But if you don't need just go to `Getting started`
     - for [windows 64-bit](https://cli-assets.heroku.com/heroku-x64.exe) or [windows 32-bit](https://cli-assets.heroku.com/heroku-x86.exe)
     - for Linux: `sudo snap install heroku --classic`
 
-2. Log into Heroku CLI
-    Use `heroku login` will redirect you to log into your heroku account, if you don't have you will have to create a *free* account.
+2. Log into Heroku CLI  
+    This command will redirect you to log into your heroku account, if you don't have you will have to create a *free* account.
+    ```
+    heroku login
+    ```
 
 3. Check the version
     ```
@@ -30,7 +33,7 @@ But if you don't need just go to `Getting started`
 
 ## Getting started
 First clone the repo and install the dependencies 
-````
+```
 git clone https://github.com/SRO-SarahRo/bdd-sro.git
 cd bdd-sro
 yarn
