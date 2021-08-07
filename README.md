@@ -58,8 +58,8 @@ coming soon.
     ```
     heroku pg:psql
     ```
-    > psql (11.5)  
-    > SSL connection (cipher: DHE-RSA-AES256-SHA, bits: 256)  
+    > psql (13.3 (Ubuntu 13.3-1.pgdg20.04+1)) 
+    > SSL connection (protocol: TLSv1.3, cipher: TLS_AES_256_GCM_SHA384, bits: 256, compression: off)  
     > Type "help" for help.  
     > => create table test_table (id integer, name text);  
     > CREATE TABLE  
