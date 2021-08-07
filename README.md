@@ -34,7 +34,7 @@ First log into log into your heroku account, if you don't have you will have to 
 ```
 heroku login
 ```
-Once logged in you'll be able to see all your database and of course `bdd-sro` if not ask ***el jefe*** Romain to add you as collaborator for this database
+Once logged in you'll be able to see all your database and of course our database -->`bdd-sro` if not ask ***el jefe*** Romain to add you as collaborator for this database
 ```
 heroku addons
 ```
@@ -54,7 +54,7 @@ heroku open
     ```
     heroku local web
     ```
-- To connect to Heroku database (you can then CREATE, INPUT, DROP table and column from your terminal)
+- To connect to our Heroku database (you can then CREATE, INPUT, DROP table and column from your terminal)
     ```
     heroku pg:psql
     ```
@@ -66,21 +66,23 @@ heroku open
     > => insert into test_table values (1, 'hello database');  
     > INSERT 0 1  
     > => \q  
-- To pull and push database
+- To pull and push database (its like `git pull` and `git push` but for database :) )
   
     **pg:pull**:  
     `pg:pull` can be used to pull remote data from a Heroku Postgres database to a database on your local machine.  
     If providing a Postgres ***user or password*** for your local DB is necessary, use the appropriate environment variables like so:
   
     ```
-    PGUSER=db_user PGPASSWORD=strongpassword123 heroku pg:pull bdd-sro mylocaldb --app bdd-sro
+    PGUSER=db_user PGPASSWORD=strongpassword123 heroku pg:pull postgresql-dimensional-81074 mylocaldb --app bdd-sro
     ```
     **pg:push**:  
     `pg:push` pushes data from a local database into a remote Heroku Postgres database. The command looks like this:
   
     ```
-    PGUSER=db_user PGPASSWORD=strongpassword123 heroku pg:push mylocaldb bdd-sro --app bdd-sro
+    PGUSER=db_user PGPASSWORD=strongpassword123 heroku pg:push mylocaldb postgresql-dimensional-81074 --app bdd-sro
     ```
+    of course the `PGUSER=db_user PGPASSWORD=strongpassword123` as well as `mylocaldb` will depend of your parameters in your local postgreSQL.
+
 ----
 
 ## Architecture 
