@@ -85,6 +85,6 @@ heroku open
 
 ----
 
-## Architecture 
+# Architecture 
 
 coming soon.
