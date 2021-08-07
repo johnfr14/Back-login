@@ -116,6 +116,10 @@ app.get('/read_message/', async (req, res) => {
   }
 })
 
+app.get('/', async (req, res) => {
+  res.send('<h1>Hello SRO</h1>')
+})
+
 app.listen(PORT, () => {
   console.log(`listening on PORT: ${PORT}`)
 })
