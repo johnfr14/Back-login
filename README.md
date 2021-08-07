@@ -6,7 +6,7 @@ But if you don't need just go to `Getting started`
 
   
 ## Quick installation (before cloning)
-1. Install heroku  
+1. Install heroku CLI
     - for [macOS](https://cli-assets.heroku.com/heroku.pkg)
     - for [windows 64-bit](https://cli-assets.heroku.com/heroku-x64.exe) or [windows 32-bit](https://cli-assets.heroku.com/heroku-x86.exe)
     - for Linux: `sudo snap install heroku --classic`
@@ -27,3 +27,16 @@ But if you don't need just go to `Getting started`
     git --version
     git version 2.28.0
     ```
+
+## Getting started
+First clone the repo and install the dependencies 
+````
+git clone https://github.com/SRO-SarahRo/bdd-sro.git
+cd bdd-sro
+yarn
+```
+then switch to branch develop or create your own branch
+```
+git branch your-name
+git checkout you-name
+```
