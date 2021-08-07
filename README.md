@@ -15,6 +15,9 @@ But if you don't need just go to `Getting started`
     Use `heroku login` will redirect you to log into your heroku account, if you don't have you will have to create a *free* account.
 
 3. Check the version
-    - ```node --version v14.15.4```
+    - ```
+    node --version
+    v14.15.4
+    ```
     - ```npm --version 6.14.11```
     - ```git --version \n git version 2.28.0```
