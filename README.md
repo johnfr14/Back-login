@@ -56,7 +56,7 @@ heroku local web
 ```
 To connect to Heroku database 
 ```
-heroku pg:psql
+$ heroku pg:psql
 > psql (11.5)
 > SSL connection (cipher: DHE-RSA-AES256-SHA, bits: 256)
 > Type "help" for help.
