@@ -7,23 +7,23 @@ But if you don't need just go to `Getting started`
   
 ## Quick installation (before cloning)
 1. **Install heroku CLI**
->   - for [macOS](https://cli-assets.heroku.com/heroku.pkg)
->   - for [windows 64-bit](https://cli-assets.heroku.com/heroku-x64.exe) or [windows 32-bit](https://cli-assets.heroku.com/heroku-x86.exe)
->   - for Linux: `sudo snap install heroku --classic`
+  - for [macOS](https://cli-assets.heroku.com/heroku.pkg)
+  - for [windows 64-bit](https://cli-assets.heroku.com/heroku-x64.exe) or [windows 32-bit](https://cli-assets.heroku.com/heroku-x86.exe)
+  - for Linux: `sudo snap install heroku --classic`
 
 2. **Check the version**
->    ```
->    node --version
->    v14.15.4
->    ```
->    ```
->    npm --version 
->    6.14.11
->    ```
->    ```
->    git --version
->    git version 2.28.0
->    ```
+   ```
+   node --version
+   v14.15.4
+   ```
+   ```
+   npm --version 
+   6.14.11
+   ```
+   ```
+   git --version
+   git version 2.28.0
+   ```
 
 ## Getting started
 First log into log into your heroku account, if you don't have you will have to create a *free* account.
@@ -57,13 +57,12 @@ heroku local web
 To connect to Heroku database 
 ```
 heroku pg:psql
+> psql (11.5)
+> SSL connection (cipher: DHE-RSA-AES256-SHA, bits: 256)
+> Type "help" for help.
+> => create table test_table (id integer, name text);
+> CREATE TABLE
+> => insert into test_table values (1, 'hello database');
+> INSERT 0 1
+> => \q
 ```
-Then you can directly create, select or delete tables and column  
-psql (11.5)
-SSL connection (cipher: DHE-RSA-AES256-SHA, bits: 256)
-Type "help" for help.
-=> create table test_table (id integer, name text);
-CREATE TABLE
-=> insert into test_table values (1, 'hello database');
-INSERT 0 1
-=> \q
